@@ -36,7 +36,7 @@
         ((and (> b a) (> c a)) (sum-of-squares b c))
         (else (sum-of-squares a c))))
 
-;1.1.7
+;1.1.7 **************************************************
 
 (define (sqrt-iter guess x)
   (if (good-enough? guess x)
@@ -56,6 +56,8 @@
 (define (my-sqrt x)
   (sqrt-iter 1.0 x))
 
+;*******************************************************
+
 (define (qbrt-iter guess x)
   (if (qbrt-good-enough? guess x)
       guess
@@ -74,5 +76,63 @@
 (define (my-qbrt x)
   (qbrt-iter 1.0 x))
 
-(my-qbrt 27)
+;1.1.8 procedure as abstraction type "black box"
+(define (block-sqrt x)
+  (define (good-enough? guess)
+    (< (abs (- (square guess) x)) 0.001))
+  (define (improve guess)
+    (average guess (/ x guess)))
+  (define (sqrt-iter guess)
+    (if (good-enough? guess)
+        guess
+        (sqrt-iter (improve guess))))
+  (sqrt-iter 1.0))
+
+;***********************************************************
+
+;1.2
+(define (my-factorial n)
+  (if (= n 1)
+      1
+  (* n (my-factorial (- n 1)))))
+
+;*********************
+
+(define (my-factorial2 n)
+  (define (iter product counter)
+    (if (> counter n)
+        product
+        (iter (* counter product) (+ counter 1))))
+  (iter 1 1))
+
+;********************
+;1.2.2 tree recursion
+
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (fib (- n 1))
+                 (fib (- n 2))))))
+;ex 1.11***************************
+;recursion process
+(define (f n)
+  (if (< n 3)
+      n
+      (+ (f (- n 1))
+         (f (- n 2))
+         (f (- n 3)))))
+;iterative process
+(define (fn n)
+  (define (iter a b c count)
+    (if (= count 0)
+        c
+        (iter (+ a b c) a b (- count 1))))
+  (iter 2 1 0 n))
+
+;*********************
+
+
+
+
+
 
