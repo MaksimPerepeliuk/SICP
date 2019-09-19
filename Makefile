@@ -1,2 +1,2 @@
 start:
-	drracket theory
+	drracket theory.rkt

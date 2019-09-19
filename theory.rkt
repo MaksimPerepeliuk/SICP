@@ -1,4 +1,4 @@
-#lang racket
+#lang sicp
 (define (square x)
   (* x x))
 
@@ -34,6 +34,45 @@
 (define (sum-of-more a b c)
   (cond ((and (> a b) (> b c)) (sum-of-squares a b))
         ((and (> b a) (> c a)) (sum-of-squares b c))
-        ((and (> a b) (> c b)) (sum-of-squares a c))))
+        (else (sum-of-squares a c))))
 
-(sum-of-more 5 3 4)
+;1.1.7
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (my-sqrt x)
+  (sqrt-iter 1.0 x))
+
+(define (qbrt-iter guess x)
+  (if (qbrt-good-enough? guess x)
+      guess
+      (qbrt-iter (qbrt-improve guess x)
+                 x)))
+
+(define (qbrt-improve guess x)
+  (/ (+ (/ x
+           (square guess))
+        (* 2 guess))
+     3))
+
+(define (qbrt-good-enough? guess x)
+  (< (abs (- (* guess guess guess) x)) 0.001))
+
+(define (my-qbrt x)
+  (qbrt-iter 1.0 x))
+
+(my-qbrt 27)
+
