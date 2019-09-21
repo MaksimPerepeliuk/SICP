@@ -127,11 +127,26 @@
     (if (= count 0)
         c
         (iter (+ a b c) a b (- count 1))))
-  (iter 2 1 0 n))
+  (iter 3 2 1 n))
 
 ;*********************
 
+;1.2.4
+;recursive process
+(define (expt b n)
+  (if (= n 0)
+      1
+      (* b (expt b (- n 1)))))
+;iterative process
+(define (i-expt b n)
+  (define (iter counter product)
+    (if (= counter 0)
+        product
+        (iter (- counter 1)
+              (* b product))))
+  (iter n 1))
 
+(remainder 4 2) ;остаток от деления
 
 
 
