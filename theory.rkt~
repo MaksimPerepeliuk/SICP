@@ -164,21 +164,9 @@
           (else (iter (* a b) b (- n 1)))))
   (iter 1 b n))
 
-;*****************************
-(define (sum-integers a b)
-  (if (> a b)
-      0
-      (+ a (sum-integers (+ a 1) b))))
+(i-fast-expt 5 2)
 
 ;*****************************
-(define (cube n)
-  (* n n n))
-
-(define (sum-cubes a b)
-  (if (> a b)
-      0
-      (+ (cube a) (sum-cubes (+ a 1) b))))
-
 
 
 
